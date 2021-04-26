@@ -247,4 +247,24 @@ $('#exampleModal').on('show.bs.modal', function (event) {
     modal.find('#btnSave').off().click(function () {
         setComment(recipient);
     });
+    function searchSuggestion() {
+    
+    let title =$.trim($('#title').val());
+
+        //ajax function search suggestion for products
+    $.ajax({
+        url: 'http://completion.amazon.com/search/complete?search-alias=aps&client=amazon-search-ui&mkt=1&q="your keyword"', //API url
+            type: 'GET',
+            dataType: 'json', //dataType, which is json for this lab.
+            data: JSON.stringify({"product_id":$id,
+            "title": title}),  //the json is defined here using javascript's dictionary syntax.
+            contentType: 'text/plain',
+    
+            success: function (data) { //on success
+                alert("Suggestion found!")},
+            
+            error: function (data) {//on error, throw an alert
+            alert("Error getting suggestion")}
+        });
+
 });
